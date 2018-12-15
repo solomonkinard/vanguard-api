@@ -1,11 +1,14 @@
 class UserNotFound(Exception):
-    pass
+  pass
+
 
 class AuthenticationFailed(Exception):
-    pass
+  pass
+
 
 class MissingRequestParams(Exception):
-    pass
+  pass
+
 
 class NotEnrolledInService(Exception):
-    pass
+  pass

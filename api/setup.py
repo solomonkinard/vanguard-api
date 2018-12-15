@@ -7,12 +7,12 @@ setup(name='api',
       author_email='rikonor@gmail.com',
       packages=['api'],
       install_requires=[
-          'flask',
-          'passlib',
-          'bcrypt',
-          'mdict',
-          'pymongo',
-          'nose',
-          'enum34'
+        'flask',
+        'passlib',
+        'bcrypt',
+        'mdict',
+        'pymongo',
+        'nose',
+        'enum34'
       ],
       zip_safe=False)

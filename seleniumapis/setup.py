@@ -7,7 +7,7 @@ setup(name='seleniumapis',
       author_email='rikonor@gmail.com',
       packages=['vanguard'],
       install_requires=[
-          'selenium',
-          'nose'
+        'selenium',
+        'nose'
       ],
       zip_safe=False)

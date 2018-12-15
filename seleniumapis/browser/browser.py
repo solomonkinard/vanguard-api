@@ -5,95 +5,96 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class Browser(object):
-    def __init__(self):
-        self.remote =  "http://selenium:4444/wd/hub"
-        self.browser_type = DesiredCapabilities.CHROME
+  def __init__(self):
+    self.remote = "http://selenium:4444/wd/hub"
+    self.browser_type = DesiredCapabilities.CHROME
 
-        self.browser = None
+    self.browser = None
 
-    def start(self):
-        self.driver = webdriver.Remote(
-           command_executor=self.remote,
-           desired_capabilities=self.browser_type)
+  def start(self):
+    self.driver = webdriver.Remote(
+      command_executor=self.remote,
+      desired_capabilities=self.browser_type)
 
-    def get(self, path):
-        self.driver.get(path)
+  def get(self, path):
+    self.driver.get(path)
 
-    def close(self):
-        self.driver.close()
+  def close(self):
+    self.driver.close()
 
-    @property
-    def inputs(self):
-        return []
+  @property
+  def inputs(self):
+    return []
 
-    @property
-    def title(self):
-        return self.driver.title
+  @property
+  def title(self):
+    return self.driver.title
 
-    def contains_text(self, text):
-        return text in self.driver.page_source
+  def contains_text(self, text):
+    return text in self.driver.page_source
 
-    def find_element_by_any(self, search_term):
-        """
-        Find an element by a search term
-        Try ID, then fallback to Name
-        """
-        return self.find_element_by_id(search_term) or \
-               self.find_element_by_name(search_term)
+  def find_element_by_any(self, search_term):
+    """
+    Find an element by a search term
+    Try ID, then fallback to Name
+    """
+    return self.find_element_by_id(search_term) or \
+           self.find_element_by_name(search_term)
 
-    def find_element_by_id(self, eid):
-        try:
-            return self.driver.find_element_by_id(eid)
-        except NoSuchElementException:
-            return None
+  def find_element_by_id(self, eid):
+    try:
+      return self.driver.find_element_by_id(eid)
+    except NoSuchElementException:
+      return None
 
-    def find_element_by_name(self, name):
-        try:
-            return self.driver.find_element_by_name(name)
-        except NoSuchElementException:
-            return None
+  def find_element_by_name(self, name):
+    try:
+      return self.driver.find_element_by_name(name)
+    except NoSuchElementException:
+      return None
 
-    def find_element_by_class(self, eclass):
-        try:
-            return self.driver.find_element_by_class_name(eclass)
-        except NoSuchElementException:
-            return None
+  def find_element_by_class(self, eclass):
+    try:
+      return self.driver.find_element_by_class_name(eclass)
+    except NoSuchElementException:
+      return None
 
-    def wait_until_visible(self, xpath):
-        WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath)))
+  def wait_until_visible(self, xpath):
+    WebDriverWait(self.driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath)))
 
-    def find_element_by_xpath(self, xpath):
-        try:
-            return self.driver.find_element_by_xpath(xpath)
-        except NoSuchElementException:
-            return None
+  def find_element_by_xpath(self, xpath):
+    try:
+      return self.driver.find_element_by_xpath(xpath)
+    except NoSuchElementException:
+      return None
 
-    def find_elements_by_xpath(self, xpath):
-        try:
-            return self.driver.find_elements_by_xpath(xpath)
-        except NoSuchElementException:
-            return None
+  def find_elements_by_xpath(self, xpath):
+    try:
+      return self.driver.find_elements_by_xpath(xpath)
+    except NoSuchElementException:
+      return None
 
-    def fill_form(self, form_id, form_info, submit_id=None):
-        """
-        Fill out a form on the currently visible page
-        form_id - is the identifier for the form
-        form_info is a mapping from input ids to values
-        """
-        # Try and find the form element
-        form_el = self.find_element_by_any(form_id)
-        found_form = form_el is not None
+  def fill_form(self, form_id, form_info, submit_id=None):
+    """
+    Fill out a form on the currently visible page
+    form_id - is the identifier for the form
+    form_info is a mapping from input ids to values
+    """
+    # Try and find the form element
+    form_el = self.find_element_by_any(form_id)
+    found_form = form_el is not None
 
-        if not form_el:
-            form_el = self
+    if not form_el:
+      form_el = self
 
-        for input_id, input_val in form_info.items():
-            input_el = form_el.find_element_by_id(input_id)
-            input_el.send_keys(input_val)
+    for input_id, input_val in form_info.items():
+      input_el = form_el.find_element_by_id(input_id)
+      input_el.send_keys(input_val)
 
-        if found_form is True:
-            return form_el.submit()
+    if found_form is True:
+      return form_el.submit()
 
-        submit = form_el.find_element_by_any(submit_id)
-        submit.click()
+    submit = form_el.find_element_by_any(submit_id)
+    submit.click()

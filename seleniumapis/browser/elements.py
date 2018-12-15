@@ -1,14 +1,17 @@
 class Element(object):
-    def __init__(self):
-        # set xpath ?
-        pass
+  def __init__(self):
+    # set xpath ?
+    pass
+
 
 class TextInput(Element):
-    pass
+  pass
+
 
 class Link(Element):
-    pass
+  pass
+
 
 class Button(Element):
-    # Is Link a subclass of button?
-    pass
+  # Is Link a subclass of button?
+  pass
